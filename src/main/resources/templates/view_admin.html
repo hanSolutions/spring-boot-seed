@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+<body>
+<p class="message">This page could be only viewed by user in Admin Group, you are logged in as
+    <span th:text="${username}">Username</span>
+</p>
+</body>
+</html>
