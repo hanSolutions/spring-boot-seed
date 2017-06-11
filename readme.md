@@ -18,7 +18,7 @@
 
 * a default error page is configured too
 
-##1.2 Add thymeleaf support
+## 1.1 Add thymeleaf support
 
 * add the following dependency
 
@@ -31,7 +31,7 @@
 
 * then you can add view files into `resources/templates` folder
 
-##1.3 Add JSP support
+## 1.2 Add JSP support
 
 * add the following dependency
 
@@ -51,7 +51,7 @@ spring.mvc.view.suffix= .jsp
 
 * then you can add view files into `resources/META-INF/resources/WEB-INF/views` folder
 
-##1.4 Servlet Container
+## 1.3 Servlet Container
 
 by default, `spring-boot-starter-web` include an embed tomcat.
 
@@ -70,14 +70,14 @@ server.port=9080
 server.context-path=/application
 ```
 
-##1.5 enable compress
+## 1.4 enable compress
 add following properties into `application.properties`
 ```properties
 server.compression.enabled=true
 server.compression.min-response-size=2048
 ```
 
-##1.6 add a filter
+## 1.5 add a filter
 
 create a Filter Java bean
 
@@ -104,7 +104,7 @@ public class AuthenticationFilter implements Filter {
 }
 ```
 
-##1.7 add a listener
+## 1.6 add a listener
 
 create a Listener bean 
 ```Java
@@ -137,14 +137,14 @@ add the following dependency
 
 the default username is `user` you can get password from your console when you start the application.
 
-##2.1 change username and password
+## 2.1 change username and password
 add following properties into your `application.properties`
 ```properties
 security.user.name=nate
 security.user.password=password
 ```
 
-##2.2 application security event
+## 2.2 application security event
 Spring Security will post some security related event which could be caught by an ApplicationListener typed with an event type.
 Here we shows how to add a listener to capture authentication failure event
 ```Java
@@ -160,7 +160,7 @@ public class SecurityEventListener implements ApplicationListener<AbstractAuthen
 }
 ```
 
-##2.3 customize login method
+## 2.3 customize login method
 We can add a security config class to change the default security config.
 Here is an example showing how to use login from instead of basic login
 ```Java
@@ -178,7 +178,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 }
 ```
 
-##2.4 add oAuth support
+## 2.4 add oAuth support
 to enable oAuth authentication, you need to add a set of properties
 ```yaml
 security:
@@ -248,7 +248,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 ```
 then you can inject the repository to your service
  
-## 4. Add Scheduled Task
+##4. Add Scheduled Task
 
  you don't need to add new pom dependency for scheduled tasks. To create a scheduled task, you need to add 
   `@EnableScheduling` annotation on Application, and create a bean like:
@@ -267,7 +267,7 @@ public class ScheduleService {
 }
 ```
 
-## 5. Add Actuator Support
+##5. Add Actuator Support
 
 add the following dependency in your pom file
 ```xml
@@ -303,7 +303,7 @@ then you can visit some predefine page
 | jolokia | Exposes JMX beans over HTTP (when Jolokia is on the classpath). | true |
 | logfile |Returns the contents of the logfile (if logging.file or logging.path properties have been set). Supports the use of the HTTP Range header to retrieve part of the log file’s content. | true |
 
-## 5. add devTools support
+##5. add devTools support
 
 you need to add following dependency to your pom 
 ```xml
