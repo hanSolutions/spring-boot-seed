@@ -126,7 +126,7 @@ public class ServerListener implements ServletContextListener {
 }
 ```
 
-#2. Add Security Support
+# 2. Add Security Support
 add the following dependency
 ```xml
         <dependency>
@@ -209,7 +209,7 @@ public class OauthSecurityConfig extends WebSecurityConfigurerAdapter{
 }
 ```
 
-#3. Add Mongo Support
+# 3. Add Mongo Support
 add the following dependency
 ```xml
 		<dependency>
@@ -248,7 +248,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 ```
 then you can inject the repository to your service
  
-##4. Add Scheduled Task
+## 4. Add Scheduled Task
 
  you don't need to add new pom dependency for scheduled tasks. To create a scheduled task, you need to add 
   `@EnableScheduling` annotation on Application, and create a bean like:
@@ -267,7 +267,7 @@ public class ScheduleService {
 }
 ```
 
-##5. Add Actuator Support
+## 5. Add Actuator Support
 
 add the following dependency in your pom file
 ```xml
@@ -303,7 +303,7 @@ then you can visit some predefine page
 | jolokia | Exposes JMX beans over HTTP (when Jolokia is on the classpath). | true |
 | logfile |Returns the contents of the logfile (if logging.file or logging.path properties have been set). Supports the use of the HTTP Range header to retrieve part of the log file’s content. | true |
 
-##5. add devTools support
+## 6. add devTools support
 
 you need to add following dependency to your pom 
 ```xml
