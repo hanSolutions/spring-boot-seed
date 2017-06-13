@@ -1,6 +1,6 @@
 # Spring Boot Seed Project
 
-## 1. Add Web Support
+## 1. Web Support
 
 * add the following dependency
 ```xml
@@ -18,7 +18,7 @@
 
 * a default error page is configured too
 
-## 1.1 Add thymeleaf support
+## 1.1 thymeleaf support
 
 * add the following dependency
 
@@ -31,7 +31,7 @@
 
 * then you can add view files into `resources/templates` folder
 
-## 1.2 Add JSP support
+## 1.2 JSP support
 
 * add the following dependency
 
@@ -126,7 +126,7 @@ public class ServerListener implements ServletContextListener {
 }
 ```
 
-# 2. Add Security Support
+# 2. Security Support
 add the following dependency
 ```xml
         <dependency>
@@ -209,7 +209,7 @@ public class OauthSecurityConfig extends WebSecurityConfigurerAdapter{
 }
 ```
 
-# 3. Add Mongo Support
+# 3. Mongo Support
 add the following dependency
 ```xml
 		<dependency>
@@ -248,7 +248,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 ```
 then you can inject the repository to your service
  
-## 4. Add Scheduled Task
+## 4. Scheduled Task
 
  you don't need to add new pom dependency for scheduled tasks. To create a scheduled task, you need to add 
   `@EnableScheduling` annotation on Application, and create a bean like:
@@ -267,7 +267,7 @@ public class ScheduleService {
 }
 ```
 
-## 5. Add Actuator Support
+## 5. Actuator Support
 
 add the following dependency in your pom file
 ```xml
@@ -303,7 +303,7 @@ then you can visit some predefine page
 | jolokia | Exposes JMX beans over HTTP (when Jolokia is on the classpath). | true |
 | logfile |Returns the contents of the logfile (if logging.file or logging.path properties have been set). Supports the use of the HTTP Range header to retrieve part of the log file’s content. | true |
 
-## 6. add devTools support
+## 6. devTools support
 
 you need to add following dependency to your pom 
 ```xml
@@ -312,3 +312,94 @@ you need to add following dependency to your pom
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 ```
+
+## 7. cache support
+
+### 7.1 enable cache
+to enable cache you need to add the following annotation on top of Application
+```java
+@EnableCaching
+```
+
+### 7.2 get from Cache
+Then add `@Cacheable` annotation on top of the repository method.
+
+```java
+public interface BookRepository {
+
+    @Cacheable("book")
+    Book getBookById(String id);
+
+}
+```
+
+### 7.3 update in Cache
+For cases where the cache needs to be updated without interfering with the method execution, one can use the `@CachePut` annotation.
+
+```java
+
+    @CachePut(cacheNames = "book", key = "#book.id")
+    void saveBook(Book book);
+
+```
+
+### 7.4 delete from Cache
+The cache abstraction allows not just population of a cache store but also eviction.
+```java
+    @CacheEvict(cacheNames = "book")
+    void deleteBook(String id);
+```
+
+### 7.5 set common attributes in common places
+`@CacheConfig` is a class-level annotation that allows to share the cache names, the custom KeyGenerator, the custom CacheManager and finally the custom CacheResolver.
+```java
+@CacheConfig(cacheNames = "book")
+public interface BookRepository {
+
+    @Cacheable
+    Book getBookById(String id);
+
+    @CachePut(key = "#book.id")
+    void saveBook(Book book);
+
+    @CacheEvict
+    void deleteBook(String id);
+}
+```
+
+## 8. Runners
+
+If you need to run some specific code once the SpringApplication has started, you can implement the `ApplicationRunner` or `CommandLineRunner` interfaces.
+
+### 8.1 enable CommandLine Runners
+
+```java
+@Component
+@Order(1)
+public class CRunner implements CommandLineRunner {
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        System.out.println("This is from Command Runner");
+    }
+}
+```
+
+### 8.2 enable Application Runners
+```java
+@Component
+@Order(2)
+public class ARunner implements ApplicationRunner{
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+
+        System.out.println("This is from Application Runner");
+
+    }
+}
+```
+
+### 8.3 runner order
+You can use `@Order` annotation to specify the order of the runner if there are multiple ones

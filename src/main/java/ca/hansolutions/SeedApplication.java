@@ -2,13 +2,17 @@ package ca.hansolutions;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class SpringSeedProjectApplication {
+@EnableCaching
+public class SeedApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSeedProjectApplication.class, args);
+
+		SpringApplication.run(SeedApplication.class, args);
+
 	}
 }
